@@ -6,19 +6,19 @@ const request = require('request')
 require('events').EventEmitter.prototype._maxListeners = 100;
 
 // for fetching the feed
-const config = require('./config'); 
+const config = require('./config');
 	// contains definations for the target feed, target RSS tags, analytics terms, SQL connection
 
 
-function getFeed(url) {
+module.exports = (url) => {
 	return new Promise(function (resolve, reject) {
 
 		let req = request(url);
 		let items = [];
 
-		let parser = new FeedParser()
+		let parser = new FeedParser();
 
-		req.on('error', (err) => { 
+		req.on('error', (err) => {
 			reject( err )
 		})
 
@@ -51,9 +51,4 @@ function getFeed(url) {
 		})
 
 	})
-
 }
-
-
-
-module.exports.getFeed = getFeed; 
